@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id String @id @default(uuid())
+
+  username  String   @unique
+  email     String   @unique
+  password  String
+  phone     String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  userSettings UsersSetings?
+  accaunt      Accaunt?
+}
+
+model UsersSetings {
+  id String @id
+
+  prems       Int     @default(0)
+  verifyEmail Boolean @default(false)
+  efa         Boolean @default(false)
+  tfa         Boolean @default(false)
+
+  EFA     EFA[]
+  TFA     TFA[]
+  Session Session[]
+
+  user Users @relation(references: [id], fields: [id], onDelete: Cascade)
+}
+
+model Accaunt {
+  id String @id
+
+  gender Boolean?
+  fname  String?
+  lname  String?
+  age    Int?
+  dname  String?
+  avatar String?  @default("public/default_user_avatar.webp")
+
+  user Users @relation(references: [id], fields: [id], onDelete: Cascade)
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+
+  usersSetings UsersSetings @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model EFA {
+  uuid      String   @id @default(uuid())
+  userId    String
+  url       String   @unique
+  expiresAt DateTime
+
+  UsersSetings UsersSetings @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model TFA {
+  uuid          String   @id @default(uuid())
+  userId        String
+  recovery_code String
+  expiresAt     DateTime
+
+  UsersSetings UsersSetings @relation(references: [id], fields: [userId], onDelete: Cascade)
+}

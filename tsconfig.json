@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "ESNext", // Использование современных модулей
+    "target": "ESNext", // Поддержка современных возможностей JS
+    "moduleResolution": "bundler", // Совместимость с Bun
+    "strict": true, // Включение строгого режима TypeScript
+    "skipLibCheck": true, // Пропуск проверки типов в зависимостях
+    "esModuleInterop": true, // Совместимость с CommonJS/ESM
+    "allowSyntheticDefaultImports": true, // Разрешение импортов по умолчанию
+    "forceConsistentCasingInFileNames": true, // Проверка регистра имен файлов
+    "isolatedModules": true, // Обеспечивает работу с модулями отдельно
+    "outDir": "./dist/", // Папка для компиляции
+    "lib": ["DOM", "ESNext"], // Браузерное и современное JS API
+    "jsx": "react", // Если JSX нужен, но теперь для React или TSX
+    "types": ["bun-types"], // Типы для Bun
+    "baseUrl": ".",
+    "paths": {
+      "@router/*": ["src/router/*"],
+      "@controller/*": ["src/controller/*"],
+      "@core/*": ["src/core/*"],
+      "@lib/*": ["lib/server/*"],
+      "@mv/*": ["src/middlewares/*"],
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["env.d.ts", "src/**/*", "src/**/*.d.ts"],
+  "exclude": ["node_modules", "dist"]
+}

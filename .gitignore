@@ -1,0 +1,15 @@
+# deps
+node_modules/
+.git_
+
+# env
+*.env
+.env
+.env.*
+
+# build
+dist/
+bunfig.toml
+
+# bun
+bun.lockb
